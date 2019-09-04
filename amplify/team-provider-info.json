@@ -1,0 +1,19 @@
+{
+    "bojandipl": {
+        "awscloudformation": {
+            "AuthRoleName": "bojan-app-bojandipl-20190725103334-authRole",
+            "UnauthRoleArn": "arn:aws:iam::156164509934:role/bojan-app-bojandipl-20190725103334-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::156164509934:role/bojan-app-bojandipl-20190725103334-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "bojan-app-bojandipl-20190725103334-deployment",
+            "UnauthRoleName": "bojan-app-bojandipl-20190725103334-unauthRole",
+            "StackName": "bojan-app-bojandipl-20190725103334",
+            "StackId": "arn:aws:cloudformation:us-east-2:156164509934:stack/bojan-app-bojandipl-20190725103334/e4ee3c90-aeb6-11e9-bcc4-026465bb0bfc"
+        },
+        "categories": {
+            "auth": {
+                "bojanappa1e4285e": {}
+            }
+        }
+    }
+}
