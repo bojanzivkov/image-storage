@@ -3,7 +3,6 @@ import { S3Image } from "aws-amplify-react";
 import "./Image.css";
 import { Auth } from "aws-amplify";
 import moment from "moment";
-
 class HomePage extends Component {
   state = { user: {} };
 
@@ -16,28 +15,28 @@ class HomePage extends Component {
   render() {
     const id = this.props.id ? this.props.id : this.props.match.params.id;
     const lastModified = moment(this.props.date).format("YYYY/MM/DD");
-    // Mon Aug 26 2019 16:14:33 GMT+0200 (Central European Summer Time)
+
     return (
-      <article className="Post">
+      <article className="post">
         <header>
-          <div className="Post-user">
-            <div className="Post-user-avatar">
+          <div className="post-user">
+            <div className="post-user-avatar">
               <img
                 src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png"
                 alt=""
               />
             </div>
-            <div className="Post-user-nickname">
+            <div className="post-user-nickname">
               <span>{this.state.user.username}</span>
             </div>
           </div>
         </header>
-        <div className="Post-image">
-          <div className="Post-image-bg">
+        <div className="post-image">
+          <div className="post-image-bg">
             <S3Image level="private" imgKey={id} />
           </div>
         </div>
-        <div className="Post-caption">
+        <div className="post-caption">
           <p> Name: {id}</p>
           <p> Date: {lastModified} </p>
         </div>

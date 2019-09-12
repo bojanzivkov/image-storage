@@ -11,8 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import ImagePage from "./ImagePage.js";
-import LinearProgress from '@material-ui/core/LinearProgress';
-
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 Amplify.configure(awsconfig);
 
@@ -45,11 +44,11 @@ const styles = theme => ({
     marginTop: theme.spacing(1)
   },
   buttons: {
-    display: 'flex',
-    width: '250px',
-    justifyContent: 'space-around',
-    margin: 'auto',
-    },
+    display: "flex",
+    width: "250px",
+    justifyContent: "space-around",
+    margin: "auto"
+  },
   submit: {
     margin: theme.spacing(3, 0, 2)
   },
@@ -66,23 +65,20 @@ const styles = theme => ({
   }
 });
 
-
-
 class HomePage extends Component {
   state = {
     imageName: "",
     imageFile: "",
     response: "",
     images: [],
-    progress: 0,
+    progress: 0
   };
 
-
   getKeys() {
-    Storage.list("", { level: 'private' })
+    Storage.list("", { level: "private" })
       .then(data => {
         this.setState({ images: data });
-        this.setState({progress: 0})
+        this.setState({ progress: 0 });
       })
       .catch(err => {
         console.log("error fetching image", err);
@@ -93,28 +89,27 @@ class HomePage extends Component {
     this.getKeys();
   }
 
-  renderProgress = (value) => {
-
+  renderProgress = value => {
     if (value) {
-    return (
-      <LinearProgress variant="buffer" value={value} valueBuffer={100} />
-    )
+      return (
+        <LinearProgress variant="buffer" value={value} valueBuffer={100} />
+      );
     }
   };
 
   uploadImage = () => {
-    const cao = (value) => this.renderProgress(value)
+    const cao = value => this.renderProgress(value);
     const up = this;
     Storage.put(`${this.upload.files[0].name}`, this.upload.files[0], {
-      level: 'private',
+      level: "private",
       contentType: this.upload.files[0].type,
-      metadata: { test: 'value' }, 
+      metadata: { test: "value" },
       progressCallback(progress) {
-        cao(parseInt(progress.loaded/progress.total*100))
-        up.setState({progress: parseInt(progress.loaded/progress.total*100)})
-  },
-
-
+        cao(parseInt((progress.loaded / progress.total) * 100));
+        up.setState({
+          progress: parseInt((progress.loaded / progress.total) * 100)
+        });
+      }
     })
       .then(result => {
         this.upload = null;
@@ -129,7 +124,6 @@ class HomePage extends Component {
 
   render() {
     const { classes } = this.props;
-
 
     return (
       <Container component="main" maxWidth="sm">
@@ -199,27 +193,30 @@ class HomePage extends Component {
             </div>
 
             <br />
-            { this.renderProgress(this.state.progress) }
-
+            {this.renderProgress(this.state.progress)}
             <br />
 
-           { this.state.progressPercent}
+            {this.state.progressPercent}
 
             {!this.state.response && <div>{this.state.response}</div>}
           </form>
         </div>
 
         <div className={classes.root}>
-      <br />
-      
-            {this.state.images
-            .sort(function(a,b){
+          <br />
+
+          {this.state.images
+            .sort(function(a, b) {
               var c = new Date(a.lastModified);
               var d = new Date(b.lastModified);
-              return d-c;
-              })
+              return d - c;
+            })
             .map(image => (
-                <ImagePage id={image.key} key={image.key} date={image.lastModified} />
+              <ImagePage
+                id={image.key}
+                key={image.key}
+                date={image.lastModified}
+              />
             ))}
         </div>
       </Container>
@@ -227,5 +224,11 @@ class HomePage extends Component {
   }
 }
 
-
-export default withAuthenticator(withStyles(styles)(HomePage), true,  [],  null, null, {hiddenDefaults: ["phone_number"]}) 
+export default withAuthenticator(
+  withStyles(styles)(HomePage),
+  true,
+  [],
+  null,
+  null,
+  { hiddenDefaults: ["phone_number"] }
+);
